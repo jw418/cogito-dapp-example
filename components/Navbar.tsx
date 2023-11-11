@@ -1,23 +1,37 @@
 import { UserButton } from "@clerk/nextjs";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from "@/components/ui/navigation-menu";
 
 export default function Navbar() {
   return (
     <>
-      <header className="bg-white border-gray-600 border-b-2 dark:bg-black">
-        <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
+      <header className="bg-white border-gray-200 border-b py-2 dark:bg-black">
+        <div className="mx-auto w-full max-w-5xl px-8 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between">
             <div className="md:flex md:items-center md:gap-12">
               <a className="block text-teal-600" href="/">
                 <span className="sr-only">Home</span>
                 <img
                   src="/img/logo-light.svg"
                   alt="Cogito Logo"
-                  className="h-12 dark:hidden"
+                  className="dark:hidden"
+                  width={100}
+                  height={43}
                 />
                 <img
                   src="/img/logo-dark.svg"
                   alt="Cogito Logo"
-                  className="h-12 hidden dark:block"
+                  className="hidden dark:block"
+                  width={100}
+                  height={43}
                 />
               </a>
             </div>
@@ -27,7 +41,7 @@ export default function Navbar() {
                 <ul className="flex items-center px-4 text-sm">
                   <li>
                     <a
-                      className="text-black transition font-bold hover:text-gray-500/75 dark:text-white"
+                      className="text-black h-10 text-sm font-bold px-4 py-2 rounded-md hover:bg-slate-200 dark:text-white active:font-bold"
                       href="/"
                     >
                       Dashboard
