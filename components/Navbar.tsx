@@ -1,60 +1,91 @@
-import { UserButton } from "@clerk/nextjs";
+"use client";
+import { SignedOut, SignedIn, SignInButton, UserButton } from "@clerk/nextjs";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { ModeToggle } from "@/components/ui/toggle-mode";
+import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
+  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
 export default function Navbar() {
+  const pathname = usePathname();
+
   return (
     <>
-      <header className="bg-white border-gray-200 border-b py-2 dark:bg-black">
-        <div className="mx-auto w-full max-w-5xl px-8 sm:px-6 lg:px-8">
+      <header className=" border-gray-200 border-b py-2 ">
+        <div className="mx-auto w-full max-w-5xl px-8">
           <div className="flex items-center justify-between">
             <div className="md:flex md:items-center md:gap-12">
-              <a className="block text-teal-600" href="/">
+              <a href="/">
                 <span className="sr-only">Home</span>
-                <img
+                <Image
                   src="/img/logo-light.svg"
                   alt="Cogito Logo"
                   className="dark:hidden"
                   width={100}
                   height={43}
+                  priority
                 />
-                <img
+                <Image
                   src="/img/logo-dark.svg"
                   alt="Cogito Logo"
                   className="hidden dark:block"
                   width={100}
                   height={43}
+                  priority
                 />
               </a>
             </div>
-
-            <div className="">
-              <nav aria-label="Global">
-                <ul className="flex items-center px-4 text-sm">
-                  <li>
-                    <a
-                      className="text-black h-10 text-sm font-bold px-4 py-2 rounded-md hover:bg-slate-200 dark:text-white active:font-bold"
-                      href="/"
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <Link href="/" legacyBehavior passHref className="text-bold">
+                    <NavigationMenuLink
+                      active={pathname === "/"}
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      Trade
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link
+                    href="/dashboard"
+                    legacyBehavior
+                    passHref
+                    className="text-bold"
+                  >
+                    <NavigationMenuLink
+                      active={pathname === "/dashboard"}
+                      className={navigationMenuTriggerStyle()}
                     >
                       Dashboard
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
 
-            <div className="flex items-center">
-              <div>
+            <div className="flex items-center gap-6">
+              <SignedOut>
+                <SignInButton>
+                  <Button className="shadow-sm bg-[#08e8de]  hover:bg-white hover:text-black  border-[1px] px-6 text-black border-[#08e8de] dark:bg-transparent  dark:text-white dark:hover:bg-[#08e8de] hover:dark:text-white shadow-[#08e8de]">
+                    Sign in
+                  </Button>
+                </SignInButton>
+              </SignedOut>
+
+              <SignedIn>
                 <UserButton afterSignOutUrl="/" />
-              </div>
+              </SignedIn>
+
+              <ModeToggle />
             </div>
           </div>
         </div>
